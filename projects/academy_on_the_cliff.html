@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="icon" type="image/png" href="../assets/site/images/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ada Farkosh | The Academy on the Cliff</title>
+</head>
+
+<body>
+
+    <div class="band band-dark"></div>
+    <div class="band band-light"></div>
+
+    <div class="sidebar">
+
+        <a href="../index.html" class="sitename">Ada Farkosh</a>
+
+        <div class="about-me">
+            <p>Motion and 3D artist with a diverse background from education to documentary production. Makes
+                visuals that explain, from psychology explainers to stylised 3D worlds. Based in Cork, Ireland.</p>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="https://www.linkedin.com/in/ada-farkosh/" target="_blank"
+                        rel="noopener">LinkedIn</a></li>
+                <li><a href="../assets/site/docs/cv.pdf" target="_blank" rel="noopener">CV</a></li>
+                <li><a href="mailto:ada.farkosh@gmail.com">Contact</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <main class="page">
+
+        <!-- TITLE -->
+        <header class="page-head">
+            <h1 class="page-title">The Academy on the Cliff</h1>
+            <p class="page-meta">2025 &nbsp;/&nbsp; 3D Environment Artist &nbsp;/&nbsp; Blender, Substance Painter,
+                After Effects</p>
+        </header>
+
+        <p class="lead">A fantasy building carved into a mountainside, reached by a single bridge over a drop. A full
+            environment, built from concept research through modular assets to an animated final render.</p>
+
+        <!-- THE FINISHED PIECE, UP FRONT -->
+        <figure class="shot-full">
+            <img src="../assets/academy_on_the_cliff/images/academy_key_still.jpg"
+                alt="Key still of the academy carved into a cliff face, reached by a single bridge">
+            <figcaption>Key still</figcaption>
+        </figure>
+
+        <!-- THE SOURCE - someone else's work, set apart and credited -->
+        <section class="context">
+            <p class="credit">The source</p>
+            <p>The scene comes from the book <em>Fourth Wing</em>: a girl crossing a narrow, unsteady bridge to reach
+                the academy. The book's descriptions set the brief for each building.</p>
+        </section>
+
+        <!-- THE BRIEF -->
+        <section class="prose">
+            <h2>The brief</h2>
+            <p>Take one scene from environmental concept to final animated render. Vertical format for social media.</p>
+        </section>
+
+        <!-- REFERENCE -->
+        <section class="prose">
+            <h2>Reference</h2>
+            <p>Predjama Castle in Slovenia, built into a cliff face.</p>
+        </section>
+
+        <figure class="shot-stack">
+            <img src="../assets/academy_on_the_cliff/images/ref_notes.jpg"
+                alt="Reference board and notes for the academy environment">
+            <figcaption>Reference notes</figcaption>
+        </figure>
+
+        <!-- MODULAR BREAKDOWN -->
+        <section class="prose">
+            <h2>Modular breakdown</h2>
+            <p>Every structure was built as a separate asset.</p>
+        </section>
+
+        <div class="shot-pair posters">
+            <figure>
+                <img src="../assets/academy_on_the_cliff/images/bridgestairs_ps.jpg"
+                    alt="Bridge and stairs assets for the academy environment">
+                <figcaption>Bridge and stairs</figcaption>
+            </figure>
+            <figure>
+                <img src="../assets/academy_on_the_cliff/images/buildings_ps_compressed.jpg"
+                    alt="Building assets for the academy environment">
+                <figcaption>Buildings</figcaption>
+            </figure>
+        </div>
+
+        <div class="shot-pair posters">
+            <figure>
+                <img src="../assets/academy_on_the_cliff/images/roofswindows_v2_compressed.jpg"
+                    alt="Roof and window assets for the academy environment">
+                <figcaption>Roofs and windows</figcaption>
+            </figure>
+            <figure>
+                <img src="../assets/academy_on_the_cliff/images/environment_ps.jpg"
+                    alt="The full academy environment assembled">
+                <figcaption>Environment</figcaption>
+            </figure>
+        </div>
+
+        <!-- PROCESS -->
+        <section class="prose">
+            <h2>Process</h2>
+        </section>
+
+        <figure class="shot-full">
+            <video autoplay muted loop playsinline width="2016" height="1134">
+                <source src="../assets/academy_on_the_cliff/images/academy_process.mp4" type="video/mp4">
+            </video>
+            <figcaption>Building up the environment</figcaption>
+        </figure>
+
+        <figure class="video">
+            <iframe src="https://player.vimeo.com/video/1193643788"
+                title="The Academy on the Cliff, process and final animated render" allowfullscreen></iframe>
+            <figcaption>Process and Final animated render</figcaption>
+        </figure>
+
+        <!-- CREDITS -->
+        <section class="credits">
+            <h2>Credits</h2>
+            <dl>
+                <dt>Role</dt>
+                <dd>3D Environment Artist (modelling, texturing, lighting, edit)</dd>
+                <dt>Year</dt>
+                <dd>2025</dd>
+                <dt>Tools</dt>
+                <dd>Blender, Substance Painter, After Effects, Photoshop</dd>
+                <dt>Tutor</dt>
+                <dd>John Halpin</dd>
+                <dt>HDRI</dt>
+                <dd>Kloppenheim 04 by Greg Zaal, Poly Haven</dd>
+            </dl>
+        </section>
+
+        <p class="back"><a href="../index.html">Back to all work</a></p>
+
+    </main>
+
+
+    <a class="contact-tab" href="mailto:ada.farkosh@gmail.com">
+        <img class="tab-passive" src="../assets/site/images/contact_me_passive.png" alt="Contact me">
+        <img class="tab-active" src="../assets/site/images/contact_me_hovered.png" alt="">
+    </a>
+
+    <div id="image-popup" onclick="closeImagePopup()">
+        <img id="image-popup-img" alt="">
+    </div>
+
+    <script>
+        // every image on the page opens in the popup - no onclick needed
+        // on each one, so a new image is just an <img> tag like the others
+        const popup = document.getElementById('image-popup');
+        const popupImg = document.getElementById('image-popup-img');
+
+        document.querySelectorAll('.page img').forEach(function (img) {
+            img.addEventListener('click', function () {
+                popupImg.src = img.src;
+                popupImg.alt = img.alt;
+                popup.classList.add('open');
+            });
+        });
+
+        function closeImagePopup() {
+            popup.classList.remove('open');
+        }
+
+        // Escape closes it too
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeImagePopup();
+        });
+    </script>
+
+</body>
+
+</html>

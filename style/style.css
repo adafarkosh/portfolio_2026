@@ -1,0 +1,1150 @@
+@import url('https://fonts.googleapis.com/css2?family=Ballet&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
+/* importing fonts from googlefonts */
+
+
+body {
+    margin: 0;
+    background-color: #F2EDE4;
+    /* plain colour under the two textured bands below */
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    color: #1A1714;
+
+    /* CUSTOM CURSOR - dark circle over the light band */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="none" stroke="%231A1714" stroke-width="3"/></svg>') 15 15, auto;
+}
+
+/* same circle filled in, no outline, on everything clickable */
+a,
+a:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%235B1E32"/></svg>') 15 15, pointer;
+}
+
+/* over the dark band the circle flips to the light colour */
+.sidebar {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="none" stroke="%23CFC9BC" stroke-width="3"/></svg>') 15 15, auto;
+}
+
+.sidebar a,
+.sidebar a:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%235B1E32"/></svg>') 15 15, pointer;
+}
+
+
+/* THE TWO BANDS - photographs instead of flat colour.
+   Separate layers rather than two backgrounds on the body, so each one can
+   use cover and crop properly instead of being stretched to fit its band. */
+.band {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    /* behind everything, and out of the way of clicks */
+    background-size: cover;
+    background-position: center;
+}
+
+.band-dark {
+    left: 0;
+    width: 27%;
+    background-image:
+        linear-gradient(rgba(20, 18, 16, .55), rgba(20, 18, 16, .55)),
+        url("../assets/site/images/background_dark.jpeg");
+    /* the flat colour sits ON TOP of the photo at 55% - the texture still
+       shows through, but the text never loses its contrast */
+}
+
+.band-light {
+    left: 27%;
+    right: 0;
+    background-image:
+        linear-gradient(rgba(242, 237, 228, .55), rgba(242, 237, 228, .55)),
+        url("../assets/site/images/background_light.jpeg");
+    /* same trick, and the warm cream pulls the grey paper toward the palette */
+}
+
+
+/* PINNED LEFT COLUMN - sits on the BOTTOM of the screen and stays there */
+.sidebar {
+    position: fixed;
+    bottom: 18px;
+    /* same gap off the bottom edge as the project list has off the top */
+    left: 2%;
+    width: 23%;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 30px;
+    /* name, then the writing, then the links last - closest to the edge,
+       all of it pushed to the right hand side of the dark band */
+    /* VISIBLE on top of anything that scrolls past
+       - no background needed, the dark band behind it comes from the body */
+}
+
+/* the three links run across instead of down */
+.menu ul {
+    display: flex;
+    justify-content: flex-end;
+    gap: 26px;
+}
+
+/* PROJECT INDEX - top right, scrolls away with the page */
+.projects {
+    position: fixed;
+    top: 18px;
+    left: 2%;
+    width: 23%;
+    z-index: 1000;
+    /* now lives on the dark band, at its top. Taken out of the flow, so the
+       project rows below can start near the top of the screen. */
+    text-align: right;
+    /* lines up with the name and links at the bottom of the same band */
+}
+
+.projects a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    /* a long project name wraps inside the band instead of running out
+       across the light half of the page */
+}
+
+.projects li {
+    font-size: 13px;
+    line-height: 1.9;
+    /* the size has to be set here too, or the line box keeps the
+       height of the 30px body text and the gap will not close */
+}
+
+.sidebar ul,
+.projects ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* TEXT IN BOTH MENUS */
+.sidebar a,
+.projects a {
+    position: relative;
+    display: inline-block;
+    /* so the plum line below can be measured against the word */
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+}
+
+.menu a {
+    text-transform: uppercase;
+}
+
+/* on the dark band - light text */
+.sidebar a {
+    color: #CFC9BC;
+}
+
+/* the project list is just an index, so it is smaller and quieter.
+   on the dark band now, so it takes the light text colour */
+.projects a {
+    font-size: 13px;
+    line-height: 1.9;
+    /* set on the link itself - the line box follows this, not the li */
+    color: #CFC9BC;
+}
+
+
+
+/* THE HOVER LINE - drawn as a pseudo element rather than text-decoration,
+   so only the line is plum and the word keeps its own colour */
+.sidebar a::after,
+.projects a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #5B1E32;
+    transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    /* grows from the left instead of appearing all at once.
+       2px here, on the project titles and on the name - every hover line
+       on the site is the same weight */
+}
+
+.sidebar a:hover::after,
+.projects a:hover::after {
+    width: 100%;
+}
+
+/* the name is underlined instead of crossed out */
+.sidebar a.sitename::after {
+    top: auto;
+    bottom: 6px;
+    height: 2px;
+}
+
+.sidebar a.sitename {
+    display: block;
+    font-family: 'Ballet', cursive;
+    font-size: 60px;
+    /* written as .sidebar a.sitename so it beats the 26px on .sidebar a above */
+    color: #F4F1E9;
+    /* brightest text on the page - top of the hierarchy */
+    line-height: 1.35;
+}
+
+
+/* ABOUT ME - part of the pinned column above */
+.about-me {
+    position: relative;
+}
+
+.about-me p {
+    margin: 0;
+    font-size: 15px;
+    /* smaller than the menu links, and the column width gives
+       roughly 40 characters a line */
+    line-height: 1.7;
+    color: #857F72;
+    /* dim until hovered */
+    transition: 0.3s;
+
+    position: relative;
+    z-index: 1;
+}
+
+.about-me:hover p {
+    color: #F2EDE4;
+    font-size: 16px;
+    /* grown with font-size, not transform, so the text stays sharp */
+}
+
+
+/* PROJECT ROWS - all of them live on the light band */
+.work {
+    margin-left: 27%;
+    padding: 55px 5vw 120px 5vw;
+    /* the index used to sit above this and push it down - with that gone,
+       the first row starts close to the top of the screen */
+    /* the 5vw on each side makes the gap to the dark band and the gap
+       to the right edge of the screen exactly the same */
+    box-sizing: border-box;
+}
+
+.project {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 60px;
+    align-items: start;
+    margin-bottom: 85px;
+}
+
+/* every second row turns around - text left, photo right */
+.project:nth-of-type(even) {
+    grid-template-columns: 1fr auto;
+    column-gap: 120px;
+    /* wider than the normal rows - the number hangs 58px to the left of the
+       photo and would otherwise land on top of the writing */
+}
+
+.project:nth-of-type(even) .stage {
+    order: 2;
+}
+
+.project:nth-of-type(even) .blurb {
+    order: 1;
+    text-align: right;
+    margin-top: 28px;
+    /* the same drop the photo gets on these rows, so the title lines up with
+       the top of the PHOTO rather than with the number, which sits higher */
+}
+
+/* a small drop so the rows are not a straight ladder */
+.project:nth-of-type(even) .stage {
+    margin-top: 28px;
+}
+
+/* the number hangs 58px to the left of its photo, so the photo is pushed
+   58px right - that puts the number's left edge on the same 5vw margin that
+   the flipped rows' photos keep from the right edge of the screen */
+.project:nth-of-type(odd) .stage {
+    margin-left: 58px;
+}
+
+
+/* THE NUMBER AND THE PHOTO */
+.stage {
+    position: relative;
+    isolation: isolate;
+    /* keeps the three layers below stacking against each other only */
+}
+
+.shot {
+    display: block;
+    position: relative;
+    z-index: 1;
+    /* sits BETWEEN the two copies of the number */
+
+    width: 260px;
+    aspect-ratio: 4 / 5;
+    /* every photo is framed to the same size */
+    background-color: #DED8CC;
+    overflow: hidden;
+}
+
+.shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* a bigger upload is cropped to the frame instead of squashed */
+    filter: grayscale(1);
+    /* black and white until hovered */
+    transition: transform .5s ease, filter .5s ease;
+}
+
+
+/* THE NUMBERS COUNT THEMSELVES.
+   The spans in the HTML are empty - CSS counts the rows and writes the
+   number in. Move a project to the top of the page and everything
+   renumbers on its own; nothing in the markup has to be touched. */
+.work {
+    counter-reset: project;
+}
+
+.project {
+    counter-increment: project;
+}
+
+.digit::before {
+    content: counter(project, decimal-leading-zero);
+    /* decimal-leading-zero is what gives 01, 02 instead of 1, 2 */
+}
+
+/* two copies of the same number, in the same spot */
+.digit {
+    position: absolute;
+    top: -30px;
+    left: -58px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 110px;
+    line-height: 0.8;
+    color: #1A1714;
+    transition: color 400ms ease;
+}
+
+.digit.back {
+    z-index: 0;
+    /* the whole number, hidden where the photo covers it */
+}
+
+.digit.front {
+    z-index: 2;
+    clip-path: inset(0 0 0 50%);
+    /* the same number again on top, with its left half cut away,
+       so only the second figure lands over the photo */
+}
+
+
+/* LENS FLARE - light layer on the photo, invisible until hovered */
+.flare-light {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 40%, rgba(255, 255, 255, .55), transparent 40%),
+        radial-gradient(circle at 35% 45%, rgba(255, 200, 100, .4), transparent 30%),
+        radial-gradient(circle at 60% 55%, rgba(255, 255, 255, .25), transparent 30%);
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+/* photo, number and title are one unit: touching any of them lights all
+   three. ":has" lets the row react to what is hovered inside it. The
+   description is not in the list, so it stays out of it. */
+.project:has(:is(.shot, .digit, .blurb h2 a):hover) .shot img {
+    transform: scale(1.05);
+    filter: grayscale(0);
+    /* true colour revealed */
+}
+
+.project:has(:is(.shot, .digit, .blurb h2 a):hover) .flare-light {
+    opacity: .45;
+    /* kept light - the colour coming back is the main event */
+}
+
+.project:has(:is(.shot, .digit, .blurb h2 a):hover) .digit {
+    color: #5B1E32;
+    /* the numbers only change colour - no line through them */
+}
+
+.project:has(:is(.shot, .digit, .blurb h2 a):hover) .blurb h2 a::after {
+    width: 100%;
+}
+
+
+/* THE WRITING BESIDE EACH PHOTO */
+.blurb {
+    max-width: 34em;
+    /* stops the line getting too long to read comfortably */
+}
+
+.project:nth-of-type(even) .blurb {
+    margin-left: auto;
+}
+
+.blurb h2 {
+    margin: 0 0 14px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    /* a label, the way the reference decks title their plates */
+    color: #1A1714;
+}
+
+.blurb h2 a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.blurb h2 a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #5B1E32;
+    transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.blurb p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #6B655C;
+}
+
+
+/* FLOATING META LABELS - small notes that sit off the grid on purpose */
+.project {
+    position: relative;
+    /* anchor for the labels below */
+}
+
+.meta {
+    position: absolute;
+    bottom: -18px;
+
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.7;
+    color: #8A8478;
+
+    border-top: 1px solid #C9C2B4;
+    padding-top: 7px;
+    width: 92px;
+    /* the hairline above is what makes it read as a margin note */
+}
+
+.meta span {
+    display: block;
+}
+
+/* they sit in the empty half of each row, and not at a tidy repeating spot */
+.project:nth-of-type(odd) .meta {
+    right: 11%;
+}
+
+.project:nth-of-type(even) .meta {
+    left: 9%;
+    bottom: 26px;
+}
+
+.project:nth-of-type(3n) .meta {
+    bottom: 54px;
+}
+
+.project:nth-of-type(4n) .meta {
+    bottom: -4px;
+}
+
+
+/* CONTACT TAB - hard against the right edge, no spacing of any kind,
+   and not part of any grid or flexbox - it is fixed to the viewport */
+.contact-tab {
+    position: fixed;
+    top: 0;
+    left: 27%;
+    /* its left edge sits exactly where the dark band ends, so the whole
+       tab rides along on the light half */
+    z-index: 1000;
+
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    line-height: 0;
+    /* line-height 0 stops the inline image leaving a gap under itself */
+
+    animation: contact-travel 13.8s linear infinite alternate;
+    /* a third slower than before: the speed drops to two thirds, so the
+       9.2s becomes 13.8s.
+       "alternate" makes it travel back UP when it reaches the bottom
+       instead of jumping to the top to start again. */
+}
+
+/* down the screen, then the same journey in reverse */
+@keyframes contact-travel {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(calc(100vh - 100%));
+        /* 100% here is the tab's own height, so it stops flush with the
+           bottom edge whatever the screen size */
+    }
+}
+
+/* a moving target is hard to click, so it waits while you are on it */
+.contact-tab:hover {
+    animation-play-state: paused;
+}
+
+.contact-tab img {
+    display: block;
+    width: 23px;
+    height: auto;
+
+    transform-origin: left center;
+    transition: transform 350ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    /* grown with a transform, not a width - the element is mid-animation and
+       a width change would make the page reflow on every hover */
+}
+
+.contact-tab:hover img {
+    transform: scale(1.18);
+    /* from the left edge, so it grows out across the light half and never
+       back over the dark band */
+}
+
+/* the hovered version sits on top of the passive one and fades in */
+.tab-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
+
+.contact-tab:hover .tab-active {
+    opacity: 1;
+}
+
+
+
+/* a still tab for anyone who asked their system for less movement */
+@media (prefers-reduced-motion: reduce) {
+    .contact-tab {
+        animation: none;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+
+/* MEDIUM SCREENS - the band gets narrower, so the index does too */
+/* A VERTICAL VIDEO - shot for social media, so it is kept narrow.
+   Add class="video video-tall" instead of class="video" */
+.video-tall {
+    max-width: 420px;
+}
+
+/* a link inside a block of writing - same plum line as the back link */
+.prose a,
+.context a,
+.credits a,
+.reflist a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #1A1714;
+}
+
+.prose a::after,
+.context a::after,
+.credits a::after,
+.reflist a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #5B1E32;
+    transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.prose a:hover::after,
+.context a:hover::after,
+.credits a:hover::after,
+.reflist a:hover::after {
+    width: 100%;
+}
+
+
+/* A STRIP OF STILLS - frames pulled from a video, side by side.
+   Four across on a wide screen, two when it gets narrower. */
+.shot-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 0 0 70px 0;
+}
+
+.shot-strip figure {
+    margin: 0;
+}
+
+.shot-strip img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #DED8CC;
+}
+
+
+/* AN ANIMATION THAT USED TO BE A GIF.
+   It is an mp4 now - far smaller for the same picture - but it still
+   behaves like a GIF: it starts itself, loops, has no sound and no
+   controls. It takes the same shape as the images it sits among. */
+.shot-full video,
+.shot-stack video,
+.shot-tall video,
+.shot-pair video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #DED8CC;
+}
+
+
+@media (max-width: 1280px) {
+
+    .projects li,
+    .projects a {
+        font-size: 11px;
+        letter-spacing: 0.04em;
+    }
+
+    .shot-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .meta {
+        display: none;
+        /* they float free of the grid, which only works while the rows have
+           empty space. Once the description starts filling the row they
+           land on top of it, so below this width they step aside. */
+    }
+
+}
+
+
+/* =========================================================
+   PROJECT PAGES
+   Everything below is only used by the pages in /projects/.
+   It shares the bands, sidebar, colours and fonts above, so
+   changing a colour there changes it here too.
+   ========================================================= */
+
+.page {
+    margin-left: 27%;
+    padding: 70px 5vw 140px 5vw;
+    /* the same band offset and the same side gaps as the index rows,
+       which is what makes a project page feel like the same site */
+    box-sizing: border-box;
+}
+
+/* 1. TITLE AND FACTS */
+.page-head {
+    margin-bottom: 50px;
+}
+
+.page-title {
+    margin: 0 0 14px 0;
+    font-size: 46px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1A1714;
+}
+
+.page-meta {
+    margin: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6B655C;
+}
+
+/* 2. OPENING PARAGRAPH - one step bigger than the body text */
+.lead {
+    max-width: 48ch;
+    margin: 0 0 70px 0;
+    font-size: 21px;
+    line-height: 1.55;
+    color: #1A1714;
+}
+
+/* 4 & 6. SECTIONS OF WRITING
+   the character cap is what stops a line running the full width of the
+   band, which would be far too long to read comfortably */
+.prose {
+    max-width: 68ch;
+    margin: 0 0 70px 0;
+}
+
+.prose h2,
+.credits h2 {
+    margin: 0 0 16px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1A1714;
+}
+
+.prose p {
+    margin: 0 0 18px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6B655C;
+}
+
+/* 3 & 5. IMAGES - fixed crops, like the index.
+   Change the aspect-ratio if a picture needs a different shape. */
+.shot-wide,
+.shot-pair figure {
+    margin: 0 0 70px 0;
+}
+
+.shot-wide img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    /* a taller upload is cropped to the frame instead of squashed */
+    display: block;
+    background-color: #DED8CC;
+}
+
+.shot-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* a pair of SMALL reference animations - sprite loops that were drawn
+   small. These are sized by HEIGHT, not width, so two loops of the
+   same character come out the same height whatever their widths are,
+   and they stand on a common bottom line.
+   480px is the real height of both files, so nothing is scaled.
+   Use class="shot-pair small" - NOT together with posters. */
+.shot-pair.small {
+    max-width: 640px;
+    column-gap: 50px;
+    align-items: end;
+}
+
+.shot-pair.small img {
+    width: auto;
+    height: 480px;
+    aspect-ratio: auto;
+    margin: 0 auto;
+    display: block;
+    background-color: transparent;
+}
+
+.shot-pair img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    background-color: #DED8CC;
+}
+
+/* every image says "click me" and brightens a little */
+.page img {
+    cursor: zoom-in;
+    transition: filter 300ms ease;
+}
+
+.page img:hover {
+    filter: brightness(1.06);
+}
+
+figcaption {
+    padding-top: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8A8478;
+}
+
+/* --- extra blocks used by the project pages --------------------------- */
+
+/* THE FILM / CONTEXT BLOCK - marked off with a rule so it reads as
+   background about someone else's project, not as my own work */
+.context {
+    max-width: 62ch;
+    margin: 0 0 70px 0;
+    padding-left: 26px;
+    border-left: 2px solid #C9C2B4;
+}
+
+.context p {
+    margin: 0 0 14px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6B655C;
+}
+
+.context .credit {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8A8478;
+}
+
+/* A ROW OF SMALLER IMAGES - for sketches, proposals, variations */
+.shot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 0 0 70px 0;
+}
+
+.shot-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    background-color: #DED8CC;
+}
+
+/* ARTWORK IS SHOWN WHOLE - no aspect-ratio and no object-fit, so the
+   image keeps its own proportions. Cropping a photo to a thumbnail is
+   fine; cropping a poster cuts off the composition you were hired to
+   make, and a contact sheet of variations becomes unreadable. */
+.shot-poster img,
+.shot-pair.posters img,
+.shot-full img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: fill;
+    display: block;
+    background-color: #DED8CC;
+}
+
+.shot-poster {
+    max-width: 440px;
+    margin: 0 0 70px 0;
+}
+
+/* a full width plate - used for the boards of proposals and variations */
+.shot-full {
+    margin: 0 0 70px 0;
+}
+
+/* the two finals, each shown large one after the other */
+.shot-stack {
+    max-width: 620px;
+    margin: 0 0 70px 0;
+}
+
+.shot-stack img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #DED8CC;
+}
+
+
+/* A TALL IMAGE - a 1080 x 1920 frame, so it is kept narrow.
+   Written after .shot-stack so this width is the one that wins. */
+.shot-tall {
+    max-width: 420px;
+    margin: 0 0 70px 0;
+}
+
+.shot-tall img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #DED8CC;
+}
+
+/* VIDEO FROM A FILE ON DISK (not an embed) */
+.video video {
+    width: 100%;
+    display: block;
+    background-color: #1A1714;
+}
+
+/* 7. VIDEO - the ratio box keeps it 16:9 at any width */
+.video {
+    margin: 0 0 70px 0;
+}
+
+.video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    display: block;
+    background-color: #DED8CC;
+}
+
+/* a vertical embed. Written after .video iframe above, because both
+   rules are equally specific and the later one is the one that wins. */
+.video-tall iframe {
+    aspect-ratio: 9 / 16;
+}
+
+
+
+/* 8. CREDITS - a two column list */
+.credits {
+    margin: 0 0 60px 0;
+}
+
+.credits dl {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px 20px;
+    margin: 0;
+    max-width: 50ch;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+}
+
+.credits dt {
+    text-transform: uppercase;
+    color: #8A8478;
+}
+
+.credits dd {
+    margin: 0;
+    color: #1A1714;
+}
+
+
+/* A SHORT LIST OF REFERENCES - same type as the credits above */
+.reflist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 72ch;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: 0.06em;
+    color: #6B655C;
+}
+
+.reflist li {
+    margin: 0 0 12px 0;
+}
+
+/* 9. BACK LINK - borrows the plum line from the menus */
+.back {
+    margin: 0;
+}
+
+.back a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1A1714;
+}
+
+.back a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #5B1E32;
+    transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.back a:hover::after {
+    width: 100%;
+}
+
+/* the page you are currently on, in the index list */
+.projects a.current {
+    color: #F4F1E9;
+}
+
+/* THE IMAGE POPUP - hidden until a picture is clicked */
+#image-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background-color: rgba(20, 18, 16, .92);
+    cursor: zoom-out;
+
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+#image-popup.open {
+    display: flex;
+    /* the script adds .open - flex is what centres the picture */
+}
+
+#image-popup img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* full size and uncropped, whatever shape the picture is */
+}
+
+
+/*FOR SMALL SCREENS!!!!!!!! - media query from w3schools*/
+
+@media (max-width: 600px) {
+
+    body {
+        font-size: 15px;
+        background-color: #F2EDE4;
+    }
+
+    .band {
+        display: none;
+        /* the side by side bands make no sense once the columns stack */
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        background-color: #141210;
+        padding: 20px 4%;
+        box-sizing: border-box;
+        gap: 18px;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .project:nth-of-type(odd) .stage {
+        margin-left: 0;
+    }
+
+
+    .contact-tab {
+        left: auto;
+        right: 0;
+        /* the bands are gone at this size, so it goes back to the edge */
+    }
+
+    .contact-tab img {
+        width: 18px;
+    }
+
+
+    .projects {
+        position: static;
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+        padding: 18px 4% 24px 4%;
+        box-sizing: border-box;
+        background-color: #141210;
+        /* it keeps the light text, so it needs the dark block behind it
+           once the two bands stop existing */
+    }
+
+
+
+
+    .menu ul {
+        gap: 18px;
+    }
+
+    .page {
+        margin-left: 0;
+        padding: 30px 4% 60px 4%;
+    }
+
+    .shot-pair,
+    .shot-grid,
+    .shot-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 30px;
+    }
+
+    .work {
+        margin-left: 0;
+        padding: 40px 4% 60px 4%;
+    }
+
+    .project,
+    .project:nth-of-type(even) {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+        margin-bottom: 80px;
+    }
+
+    .project:nth-of-type(even) .stage {
+        order: 0;
+        margin-top: 0;
+    }
+
+    .project:nth-of-type(even) .blurb {
+        order: 0;
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .shot {
+        width: 100%;
+    }
+
+    .digit {
+        font-size: 64px;
+        top: -18px;
+        left: 0;
+    }
+
+}
