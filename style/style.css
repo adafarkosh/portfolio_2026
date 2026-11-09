@@ -1070,13 +1070,11 @@ figcaption {
 
 
     .contact-tab {
-        left: auto;
-        right: 0;
-        /* the bands are gone at this size, so it goes back to the edge */
-    }
-
-    .contact-tab img {
-        width: 18px;
+        display: none;
+        /* hidden on a phone. It is a 23px target that has to be caught
+           while it moves, and the hover that swaps the image and shows
+           the label does not exist on a touch screen. The CONTACT link
+           under the name does the same job here. */
     }
 
 
