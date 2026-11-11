@@ -927,6 +927,16 @@ figcaption {
     aspect-ratio: 9 / 16;
 }
 
+/* TWO 3D MODELS SIDE BY SIDE - live Sketchfab viewers.
+   Square-ish frame so a tall tower is not squeezed into a letterbox. */
+.shot-pair.models iframe {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border: 0;
+    display: block;
+    background-color: #1A1714;
+}
+
 
 
 /* 8. CREDITS - a two column list */
