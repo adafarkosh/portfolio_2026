@@ -966,6 +966,23 @@ figcaption {
 }
 
 
+/* A FOLDER TREE, or any short block of plain text meant to be read as a
+   specimen rather than as body copy. Set in the label typeface on the
+   same surface colour the image frames use. Written as <pre class="tree">. */
+.tree {
+    max-width: 68ch;
+    margin: 0 0 70px 0;
+    padding: 22px 26px;
+    box-sizing: border-box;
+    background-color: #DED8CC;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #1A1714;
+    overflow-x: auto;
+}
+
+
 /* A SHORT LIST OF REFERENCES - same type as the credits above */
 .reflist {
     list-style: none;
