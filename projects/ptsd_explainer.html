@@ -15,14 +15,60 @@
     <div class="band band-dark"></div>
     <div class="band band-light"></div>
 
+    <!-- CATEGORY INDEX - <details> does the opening and closing itself.
+         "name" makes them exclusive: opening one closes the others.
+         Each link carries its own category as "?c=", so the page it
+         opens lands on the category you clicked from.
+         "all" is a link rather than a category: the index already is
+         the list of everything, so it goes there instead of opening. -->
+    <nav class="projects">
+        <ul>
+            <li><a class="cat-all" href="../index.html">all</a></li>
+            <li>
+                <details name="cats" data-cat="motion" open>
+                    <summary>motion</summary>
+                    <ul>
+                        <li><a href="motion_for_explainers.html?c=motion">Explainer animation</a></li>
+                        <li><a class="current" href="ptsd_explainer.html?c=motion">PTSD explainer</a></li>
+                        <li><a href="the_big_bang.html?c=motion">The Big Bang loop</a></li>
+                        <li><a href="violet_character.html?c=motion">Violet (stylised character)</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details name="cats" data-cat="3d-vfx">
+                    <summary>3d & vfx</summary>
+                    <ul>
+                        <li><a href="violet_character.html?c=3d-vfx">Violet (stylised character)</a></li>
+                        <li><a href="academy_on_the_cliff.html?c=3d-vfx">Academy on the Cliff</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details name="cats" data-cat="design">
+                    <summary>design</summary>
+                    <ul>
+                        <li><a href="motion_for_explainers.html?c=design">Explainer animation</a></li>
+                        <li><a class="current" href="ptsd_explainer.html?c=design">PTSD explainer</a></li>
+                        <li><a href="violet_character.html?c=design">Violet (stylised character)</a></li>
+                        <li><a href="what_remains_after.html?c=design">What Remains (film poster)</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </nav>
+
     <div class="sidebar">
 
         <a href="../index.html" class="sitename">Ada Farkosh</a>
 
         <div class="about-me">
             <p>Hi, I'm Ada, a Ukrainian motion and 3D artist based in Cork. I love telling stories with pixels and
-                vertices. Before animation, I wrote for teachers and produced a documentary, and I still turn complex
-                ideas into simple visuals.</p>
+                vertices.
+                <br>
+                I work across design, from key art, title sequences and websites to 3D environments and VFX.
+                <br>
+                &#128205;Now open to work</p>
         </div>
 
         <div class="menu">
@@ -53,12 +99,6 @@
              The frames and the video are all 1080 x 1920, so they use the
              narrow container - "shot-tall" for an image, "video-tall" for a
              video -->
-        <figure class="shot-tall">
-            <img src="../assets/ptsd_explainer/images/1_spider.jpg"
-                alt="Opening frame, a cute spider introducing itself as your PTSD">
-            <figcaption>Opening frame</figcaption>
-        </figure>
-
         <figure class="video">
             <iframe src="https://player.vimeo.com/video/1245149930" title="PTSD and War Awareness Explainer"
                 allowfullscreen></iframe>
@@ -181,7 +221,7 @@
                 <dt>Tutor</dt>
                 <dd>Andrea Halphin</dd>
                 <dt>Footage</dt>
-                <dd>Kharkiv, Datalion</dd>
+                <dd>Kharkiv, <a href="https://dattalion.com/" target="_blank" rel="noopener">Dattalion</a></dd>
                 <dt>News screenshots</dt>
                 <dd>The Kyiv Independent</dd>
                 <dt>Stock</dt>
@@ -225,6 +265,21 @@
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeImagePopup();
         });
+    </script>
+
+    <script>
+        // the menu link that brought you here carries its category, as
+        // "?c=design". Open that one, so the category you clicked from is
+        // the category you land in. No parameter (arriving from a project
+        // image on the index, or a bare link) leaves the page's own
+        // default open.
+        const fromLink = new URLSearchParams(location.search).get('c');
+
+        if (fromLink) {
+            document.querySelectorAll('.projects details').forEach(function (cat) {
+                cat.open = (cat.dataset.cat === fromLink);
+            });
+        }
     </script>
 
 </body>

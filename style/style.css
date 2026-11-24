@@ -4,8 +4,8 @@
 
 body {
     margin: 0;
-    background-color: #F2EDE4;
-    /* plain colour under the two textured bands below */
+    background-color: #F3F1EF;
+    /* plain colour under the two bands below */
 
     font-family: 'Space Grotesk', sans-serif;
     font-size: 16px;
@@ -18,50 +18,43 @@ body {
 /* same circle filled in, no outline, on everything clickable */
 a,
 a:hover {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%235B1E32"/></svg>') 15 15, pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%23C20E35"/></svg>') 15 15, pointer;
 }
 
 /* over the dark band the circle flips to the light colour */
-.sidebar {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="none" stroke="%23CFC9BC" stroke-width="3"/></svg>') 15 15, auto;
+.sidebar,
+.projects {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="none" stroke="%23C9C7C4" stroke-width="3"/></svg>') 15 15, auto;
 }
 
 .sidebar a,
-.sidebar a:hover {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%235B1E32"/></svg>') 15 15, pointer;
+.sidebar a:hover,
+.projects summary {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="11" fill="%23C20E35"/></svg>') 15 15, pointer;
 }
 
 
-/* THE TWO BANDS - photographs instead of flat colour.
-   Separate layers rather than two backgrounds on the body, so each one can
-   use cover and crop properly instead of being stretched to fit its band. */
+/* THE TWO BANDS - flat colour.
+   Separate layers rather than two backgrounds on the body, so the split
+   stays exactly at 27% whatever the window size. */
 .band {
     position: fixed;
     top: 0;
     bottom: 0;
     z-index: -1;
     /* behind everything, and out of the way of clicks */
-    background-size: cover;
-    background-position: center;
 }
 
 .band-dark {
     left: 0;
     width: 27%;
-    background-image:
-        linear-gradient(rgba(20, 18, 16, .55), rgba(20, 18, 16, .55)),
-        url("../assets/site/images/background_dark.jpeg");
-    /* the flat colour sits ON TOP of the photo at 55% - the texture still
-       shows through, but the text never loses its contrast */
+    background-color: #0A0908;
 }
 
 .band-light {
     left: 27%;
     right: 0;
-    background-image:
-        linear-gradient(rgba(242, 237, 228, .55), rgba(242, 237, 228, .55)),
-        url("../assets/site/images/background_light.jpeg");
-    /* same trick, and the warm cream pulls the grey paper toward the palette */
+    background-color: #F3F1EF;
 }
 
 
@@ -119,6 +112,85 @@ a:hover {
        height of the 30px body text and the gap will not close */
 }
 
+/* CATEGORY INDEX, OPTION 1 - <details> and <summary>.
+   The browser does the opening, closing and keyboard access itself, so
+   there is no script behind this. */
+.projects summary,
+.projects .cat-all {
+    position: relative;
+    display: inline-block;
+    /* same box as a link, so the line can be measured against the word
+       and does not run the full width of the band */
+    list-style: none;
+    /* removes the default triangle in Firefox */
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+    color: #807E7B;
+    padding: 4px 0;
+    transition: color 300ms ease;
+}
+
+.projects summary::-webkit-details-marker {
+    display: none;
+    /* and the same triangle in Safari */
+}
+
+.projects summary:hover,
+.projects .cat-all:hover,
+.projects details[open] summary {
+    color: #F3F1EF;
+    /* the open category is the brightest thing in the list */
+}
+
+.projects details ul {
+    padding-bottom: 10px;
+}
+
+/* the project names take the body face at the same size as the row
+   descriptions and the bio, so the only Space Mono left in this menu is
+   the category above them. ".projects details a" outranks the shared
+   ".projects a" rule on specificity, so it wins wherever it sits. */
+.projects details a {
+    color: #C9C7C4;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    letter-spacing: normal;
+    line-height: 1.7;
+}
+
+.projects details li {
+    font-size: 15px;
+    line-height: 1.7;
+    /* set here too, or the line box keeps the 13px height from
+       ".projects li" and the spacing will not match */
+}
+
+
+/* CATEGORY INDEX, OPTION 4 - everything visible, no interaction.
+   The category is a quiet label and the project names carry the links. */
+.projects.grouped .cat {
+    margin-bottom: 14px;
+}
+
+.projects.grouped .cat-name {
+    margin: 0 0 2px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #807E7B;
+    /* dimmer and smaller than the names below it, the way the row meta
+       labels work on the light side */
+}
+
+.projects.grouped a {
+    color: #C9C7C4;
+}
+
+
 .sidebar ul,
 .projects ul {
     list-style-type: none;
@@ -145,7 +217,7 @@ a:hover {
 
 /* on the dark band - light text */
 .sidebar a {
-    color: #CFC9BC;
+    color: #C9C7C4;
 }
 
 /* the project list is just an index, so it is smaller and quieter.
@@ -154,7 +226,7 @@ a:hover {
     font-size: 13px;
     line-height: 1.9;
     /* set on the link itself - the line box follows this, not the li */
-    color: #CFC9BC;
+    color: #C9C7C4;
 }
 
 
@@ -162,14 +234,15 @@ a:hover {
 /* THE HOVER LINE - drawn as a pseudo element rather than text-decoration,
    so only the line is plum and the word keeps its own colour */
 .sidebar a::after,
-.projects a::after {
+.projects a::after,
+.projects summary::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 0;
     width: 0;
     height: 2px;
-    background: #5B1E32;
+    background: #C20E35;
     transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
     /* grows from the left instead of appearing all at once.
        2px here, on the project titles and on the name - every hover line
@@ -177,7 +250,9 @@ a:hover {
 }
 
 .sidebar a:hover::after,
-.projects a:hover::after {
+.projects a:hover::after,
+.projects summary:hover::after,
+.projects details[open] summary::after {
     width: 100%;
 }
 
@@ -188,13 +263,25 @@ a:hover {
     height: 2px;
 }
 
+/* and so are the categories - underlined, not crossed out, so an open
+   category reads as the one you are in rather than one struck off.
+   This has to sit AFTER the shared rule above or the "top: 50%" there
+   wins on source order, both selectors being the same weight. */
+.projects summary::after,
+.projects .cat-all::after {
+    top: auto;
+    bottom: 3px;
+    height: 2px;
+}
+
 .sidebar a.sitename {
     display: block;
     font-family: 'Ballet', cursive;
     font-size: 60px;
     /* written as .sidebar a.sitename so it beats the 26px on .sidebar a above */
-    color: #F4F1E9;
-    /* brightest text on the page - top of the hierarchy */
+    color: #F3F1EF;
+    /* brightest text on the page, and the same value as the light band,
+       so the two halves are tied together - top of the hierarchy */
     line-height: 1.35;
 }
 
@@ -210,7 +297,7 @@ a:hover {
     /* smaller than the menu links, and the column width gives
        roughly 40 characters a line */
     line-height: 1.7;
-    color: #857F72;
+    color: #807E7B;
     /* dim until hovered */
     transition: 0.3s;
 
@@ -219,7 +306,7 @@ a:hover {
 }
 
 .about-me:hover p {
-    color: #F2EDE4;
+    color: #F3F1EF;
     font-size: 16px;
     /* grown with font-size, not transform, so the text stays sharp */
 }
@@ -297,16 +384,16 @@ a:hover {
     overflow: hidden;
 }
 
-.shot img {
+/* a row's frame holds either a still or a silent clip - both are laid out
+   exactly the same way, so swapping one for the other changes nothing */
+.shot img,
+.shot video {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     /* a bigger upload is cropped to the frame instead of squashed */
-    filter: grayscale(1);
-    /* black and white until hovered */
-    transition: transform .5s ease, filter .5s ease;
 }
 
 
@@ -354,33 +441,11 @@ a:hover {
 
 
 /* LENS FLARE - light layer on the photo, invisible until hovered */
-.flare-light {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 20% 40%, rgba(255, 255, 255, .55), transparent 40%),
-        radial-gradient(circle at 35% 45%, rgba(255, 200, 100, .4), transparent 30%),
-        radial-gradient(circle at 60% 55%, rgba(255, 255, 255, .25), transparent 30%);
-    opacity: 0;
-    transition: opacity .5s ease;
-}
-
 /* photo, number and title are one unit: touching any of them lights all
    three. ":has" lets the row react to what is hovered inside it. The
    description is not in the list, so it stays out of it. */
-.project:has(:is(.shot, .digit, .blurb h2 a):hover) .shot img {
-    transform: scale(1.05);
-    filter: grayscale(0);
-    /* true colour revealed */
-}
-
-.project:has(:is(.shot, .digit, .blurb h2 a):hover) .flare-light {
-    opacity: .45;
-    /* kept light - the colour coming back is the main event */
-}
-
 .project:has(:is(.shot, .digit, .blurb h2 a):hover) .digit {
-    color: #5B1E32;
+    color: #C20E35;
     /* the numbers only change colour - no line through them */
 }
 
@@ -424,7 +489,7 @@ a:hover {
     left: 0;
     width: 0;
     height: 2px;
-    background: #5B1E32;
+    background: #C20E35;
     transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -594,7 +659,7 @@ a:hover {
     left: 0;
     width: 0;
     height: 2px;
-    background: #5B1E32;
+    background: #C20E35;
     transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -1023,7 +1088,7 @@ figcaption {
     left: 0;
     width: 0;
     height: 2px;
-    background: #5B1E32;
+    background: #C20E35;
     transition: width 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -1033,7 +1098,7 @@ figcaption {
 
 /* the page you are currently on, in the index list */
 .projects a.current {
-    color: #F4F1E9;
+    color: #F3F1EF;
 }
 
 /* THE IMAGE POPUP - hidden until a picture is clicked */
@@ -1042,7 +1107,7 @@ figcaption {
     position: fixed;
     inset: 0;
     z-index: 2000;
-    background-color: rgba(20, 18, 16, .92);
+    background-color: rgba(10, 9, 8, .94);
     cursor: zoom-out;
 
     align-items: center;
@@ -1072,7 +1137,7 @@ figcaption {
 
     body {
         font-size: 15px;
-        background-color: #F2EDE4;
+        background-color: #F3F1EF;
     }
 
     .band {
@@ -1083,7 +1148,7 @@ figcaption {
     .sidebar {
         position: static;
         width: 100%;
-        background-color: #141210;
+        background-color: #0A0908;
         padding: 20px 4%;
         box-sizing: border-box;
         gap: 18px;
@@ -1112,7 +1177,7 @@ figcaption {
         margin-left: 0;
         padding: 18px 4% 24px 4%;
         box-sizing: border-box;
-        background-color: #141210;
+        background-color: #0A0908;
         /* it keeps the light text, so it needs the dark block behind it
            once the two bands stop existing */
     }

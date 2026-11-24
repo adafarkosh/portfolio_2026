@@ -18,14 +18,60 @@
     <div class="band band-light"></div>
 
     <!-- PINNED LEFT COLUMN - menu and about me travel down the page together -->
+    <!-- CATEGORY INDEX - <details> does the opening and closing itself.
+         "name" makes them exclusive: opening one closes the others.
+         Each link carries its own category as "?c=", so the page it
+         opens lands on the category you clicked from.
+         "all" is a link rather than a category: the index already is
+         the list of everything, so it goes there instead of opening. -->
+    <nav class="projects">
+        <ul>
+            <li><a class="cat-all current" href="index.html">all</a></li>
+            <li>
+                <details name="cats" data-cat="motion">
+                    <summary>motion</summary>
+                    <ul>
+                        <li><a href="projects/motion_for_explainers.html?c=motion">Explainer animation</a></li>
+                        <li><a href="projects/ptsd_explainer.html?c=motion">PTSD explainer</a></li>
+                        <li><a href="projects/the_big_bang.html?c=motion">The Big Bang loop</a></li>
+                        <li><a href="projects/violet_character.html?c=motion">Violet (stylised character)</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details name="cats" data-cat="3d-vfx">
+                    <summary>3d & vfx</summary>
+                    <ul>
+                        <li><a href="projects/violet_character.html?c=3d-vfx">Violet (stylised character)</a></li>
+                        <li><a href="projects/academy_on_the_cliff.html?c=3d-vfx">Academy on the Cliff</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details name="cats" data-cat="design">
+                    <summary>design</summary>
+                    <ul>
+                        <li><a href="projects/motion_for_explainers.html?c=design">Explainer animation</a></li>
+                        <li><a href="projects/ptsd_explainer.html?c=design">PTSD explainer</a></li>
+                        <li><a href="projects/violet_character.html?c=design">Violet (stylised character)</a></li>
+                        <li><a href="projects/what_remains_after.html?c=design">What Remains (film poster)</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </nav>
+
     <div class="sidebar">
 
         <a href="index.html" class="sitename">Ada Farkosh</a>
 
         <div class="about-me">
             <p>Hi, I'm Ada, a Ukrainian motion and 3D artist based in Cork. I love telling stories with pixels and
-                vertices. Before animation, I wrote for teachers and produced a documentary, and I still turn complex
-                ideas into simple visuals.</p>
+                vertices.
+                <br>
+                I work across design, from key art, title sequences and websites to 3D environments and VFX.
+                <br>
+                &#128205;Now open to work</p>
         </div>
 
         <div class="menu">
@@ -53,21 +99,36 @@
            - which side it sits on   CSS alternates it by position
 
          You DO change, inside the block you pasted:
-           1. the photo         src="assets/project_name/images/..."  and its alt text
-           2. the two links     href="projects/your_page.html"
-           3. the title         inside the <h2>
-           4. the description   inside the <p>
-           5. the two meta      lines (year and medium)
+           1. the cover      either an <img src="assets/your_project/images/...">
+                             or, for a clip, the <video> poster and <source>.
+                             A clip needs no extra code: any <video> inside a
+                             .shot plays while its row is hovered.
+           2. the two links  href="projects/your_page.html" - on the <a class="shot">
+                             and on the <a> inside the <h2>. No "?c=" here;
+                             that is only for the category menu.
+           3. the title      inside the <h2>
+           4. the description inside the <p>
+           5. the two meta   lines (year and medium)
 
+         THEN add it to the category menu, in <nav class="projects"> near the
+         top of this file: one <li><a href="projects/your_page.html?c=SLUG">
+         inside every category it belongs to, where SLUG matches that
+         category's data-cat. The same menu block lives on all six project
+         pages, so paste it there too - with href="your_page.html?c=SLUG",
+         no "projects/" prefix, since those pages already sit in that folder.
          ===================================================================== -->
     <div class="work">
         <article class="project">
             <div class="stage">
                 <span class="digit back"></span>
                 <a class="shot" href="projects/motion_for_explainers.html">
-                    <img src="assets/motion_explainers/images/motion_thumb.jpg"
-                        alt="Frame from the explainer showreel">
-                    <span class="flare-light"></span>
+                    <!-- a clip instead of a still. "poster" is frame one of this
+                         same file, so the frame looks identical until it moves -->
+                    <video muted loop playsinline preload="auto"
+                        poster="assets/motion_explainers/images/cover_whales_poster.jpg"
+                        width="720" height="900" aria-label="Whales from the explainer showreel">
+                        <source src="assets/motion_explainers/videos/cover_whales.mp4" type="video/mp4">
+                    </video>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -87,7 +148,6 @@
                 <span class="digit back"></span>
                 <a class="shot" href="projects/what_remains_after.html">
                     <img src="assets/what_remains/images/wra_keyart_digital.jpg" alt="Key art for the documentary What Remains">
-                    <span class="flare-light"></span>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -106,9 +166,13 @@
             <div class="stage">
                 <span class="digit back"></span>
                 <a class="shot" href="projects/violet_character.html">
-                    <img src="assets/violet_character/images/violet_thumb.jpg"
-                        alt="Violet, the 3D character, in a T-pose">
-                    <span class="flare-light"></span>
+                    <!-- a clip instead of a still. "poster" is frame one of this
+                         same file, so the frame looks identical until it moves -->
+                    <video muted loop playsinline preload="auto"
+                        poster="assets/violet_character/images/turnaround_poster.jpg"
+                        width="720" height="900">
+                        <source src="assets/violet_character/videos/turnaround.mp4" type="video/mp4">
+                    </video>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -127,9 +191,13 @@
             <div class="stage">
                 <span class="digit back"></span>
                 <a class="shot" href="projects/ptsd_explainer.html">
-                    <img src="assets/ptsd_explainer/images/ptsd_thumb.jpg"
-                        alt="A cut-paper spider holding the letters P T S D">
-                    <span class="flare-light"></span>
+                    <!-- a clip instead of a still. "poster" is frame one of this
+                         same file, so the frame looks identical until it moves -->
+                    <video muted loop playsinline preload="auto"
+                        poster="assets/ptsd_explainer/images/cover_hand_poster.jpg"
+                        width="720" height="900" aria-label="A hand holding a phone, from the PTSD explainer">
+                        <source src="assets/ptsd_explainer/videos/cover_hand.mp4" type="video/mp4">
+                    </video>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -149,9 +217,13 @@
             <div class="stage">
                 <span class="digit back"></span>
                 <a class="shot" href="projects/academy_on_the_cliff.html">
-                    <img src="assets/academy_on_the_cliff/images/academy_thumb.jpg"
-                        alt="The academy carved into a cliff face, reached by a single bridge">
-                    <span class="flare-light"></span>
+                    <!-- a clip instead of a still. "poster" is frame one of this
+                         same file, so the frame looks identical until it moves -->
+                    <video muted loop playsinline preload="auto"
+                        poster="assets/academy_on_the_cliff/images/cover_process_poster.jpg"
+                        width="720" height="900" aria-label="The Academy built up from grey model to final render">
+                        <source src="assets/academy_on_the_cliff/videos/cover_process.mp4" type="video/mp4">
+                    </video>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -170,9 +242,13 @@
             <div class="stage">
                 <span class="digit back"></span>
                 <a class="shot" href="projects/the_big_bang.html">
-                    <img src="assets/the_big_bang/images/bigbang_thumb.jpg"
-                        alt="A solar system drawn in thin circles, lines and dots">
-                    <span class="flare-light"></span>
+                    <!-- a clip instead of a still. "poster" is frame one of this
+                         same file, so the frame looks identical until it moves -->
+                    <video muted loop playsinline preload="auto"
+                        poster="assets/the_big_bang/images/cover_loop_light_poster.jpg"
+                        width="720" height="900" aria-label="The Big Bang loop, light version">
+                        <source src="assets/the_big_bang/videos/cover_loop_light.mp4" type="video/mp4">
+                    </video>
                 </a>
                 <span class="digit front"></span>
             </div>
@@ -196,6 +272,40 @@
         <img class="tab-passive" src="assets/site/images/contact_me_passive.png" alt="Contact me">
         <img class="tab-active" src="assets/site/images/contact_me_hovered.png" alt="">
     </a>
+
+    <script>
+        // any row whose frame holds a video plays it while the row is hovered.
+        // nothing to add per row - drop a <video> into a .shot and it works.
+        document.querySelectorAll('.project').forEach(function (row) {
+            const clip = row.querySelector('.shot video');
+            if (!clip) return;
+
+            row.addEventListener('mouseenter', function () {
+                clip.play();
+            });
+
+            row.addEventListener('mouseleave', function () {
+                clip.pause();
+                clip.currentTime = 0;
+                // back to frame one, so it always starts from the still
+            });
+        });
+    </script>
+
+    <script>
+        // the menu link that brought you here carries its category, as
+        // "?c=design". Open that one, so the category you clicked from is
+        // the category you land in. No parameter (arriving from a project
+        // image on the index, or a bare link) leaves the page's own
+        // default open.
+        const fromLink = new URLSearchParams(location.search).get('c');
+
+        if (fromLink) {
+            document.querySelectorAll('.projects details').forEach(function (cat) {
+                cat.open = (cat.dataset.cat === fromLink);
+            });
+        }
+    </script>
 
 </body>
 
